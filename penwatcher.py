@@ -19,10 +19,13 @@ def dSerByName(name):
 def get_auth_devices():
     #returns list of serial numbers of mounted devices that are authorized
     devices = {}
-    for f in os.listdir(STORE_DIR):
-        did = re.findall("Serial Number: ([A-Za-z0-9]+)", file("%s/%s" % (STORE_DIR,f), "r").read() )
-        if len(did)>0 and did[0] in AUTHORIZED.keys():
-            devices[did[0]] = AUTHORIZED[did[0]]
+    try:
+       for f in os.listdir(STORE_DIR):
+           did = re.findall("Serial Number: ([A-Za-z0-9]+)", file("%s/%s" % (STORE_DIR,f), "r").read() )
+           if len(did)>0 and did[0] in AUTHORIZED.keys():
+               devices[did[0]] = AUTHORIZED[did[0]]
+    except:
+        pass
     return devices
 
 
